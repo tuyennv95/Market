@@ -1,0 +1,45 @@
+.text {
+  display: flex;
+  justify-content: space-between;
+}
+.text h2 {
+  color: #000;
+  line-height: 40px;
+  margin: 0 px;
+  padding-left: 10px;
+  font-size: 1.125em;
+  text-transform: uppercase;
+  margin-bottom: 20 px;
+  font-weight: 600;
+}
+.promotion {
+  display: flex;
+  margin-right: 20px;
+}
+.promotion h2 {
+  font-weight: lighter;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #000;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+.option {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sort {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.option-divider {
+  position: absolute;
+  height: 20px;
+  border-right: 2px solid rgba(0, 0, 0, 0.364);
+  top: 10px;
+
+  left: 120px;
+}

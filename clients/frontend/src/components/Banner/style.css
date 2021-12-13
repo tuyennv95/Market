@@ -1,0 +1,19 @@
+.banner{
+    height:370px;
+    margin-bottom:50px;
+    width: 100%;
+
+}
+.banner-main{
+    height:100%;
+    margin-top:30px;
+}
+.banner-main-row{
+    height:100%;
+}
+
+.banner-main-row img{
+    width:100%;
+    border-bottom:1px dashed gray;
+    height: calc(100%/4)
+}
