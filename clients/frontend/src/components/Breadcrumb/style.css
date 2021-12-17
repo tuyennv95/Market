@@ -1,0 +1,10 @@
+.breadcrum-link{
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color:black;
+    font-weight: 500;
+}
+.breadcrumb{
+    margin-bottom: 20px;
+}

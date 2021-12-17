@@ -1,0 +1,76 @@
+/* .fix-text-item {
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    color: #242424e3;
+    padding: 6px;
+    font-weight: 100;
+  }
+  .fix-link-color {
+    color: #242424;
+  }
+  
+  .bg-light {
+    background-color: #007bff!important;
+    font-size: 16px;
+    font-weight: 600!important;
+    padding: 10px 0 5px;
+    font-family: sans-serif;
+    color: black;
+  }
+  .navbar-brand {
+    padding-top: 0 !important;
+  }
+  
+  .dropdown-item {
+    padding: 10px 15px !important;
+  }
+  .container .dropdown .dropdown-menu a:hover
+  {
+    color: #fff;
+    background-color: #b91773;
+    border-color: #fff;
+  }
+  .navbar-light .navbar-nav .nav-link {
+    color: #000000ad !important;
+  }
+  .smallIMG{
+    width:100%;
+  } */
+  .header-top{
+    height:50px;
+  }
+  .header-top_main{
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .phone-header{
+    font-size: 16px;
+    color:rgb(196, 49, 49);
+    font-weight: 700;
+  }
+  .phone-header:hover{
+    color:#787D47;
+  }
+  .header-mid{
+    height: 120px;
+    width: 100%;
+  }
+  .header-mid_main{
+    height:100%;
+  }
+  .header-mid_main img{
+    height: 100px !important;
+  }
+  .header-mid_hotline {
+    float: right;
+    background: #e53a40;
+    border-radius: 5px;
+    padding: 10px 30px;
+    color: #ffffff;
+    /* font-size: 16px; */
+
+  }
