@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom';
 import {PhoneOutlined} from '@ant-design/icons';
 
 const HeaderTop = () => {
-    const loadingPage = () =>{
+  //  const token  =   localStorage.getItem('token');
 
-    }
     return (
       <div className="header-top">
         <div className="container">
@@ -18,7 +17,7 @@ const HeaderTop = () => {
             
                 <ul className="ht-menu">
                   <li>
-                    <Link onClick={()=>loadingPage()} style={{fontSize: '14px', color: 'black' }} to="/login-register" className=""> Đăng nhập </Link>
+                    <Link style={{fontSize: '14px', color: 'black' }} to="/login" className=""> Đăng nhập </Link>
                         {/* <div className="dropdown show">
                           <Link to="#" className=" fix-link-color dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Tài khoản

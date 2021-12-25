@@ -32,7 +32,7 @@ export default class App extends React.Component {
     this.changeTO = setTimeout(() => {
       this.changeSlides(1);
       this.runAutochangeTO();
-    }, this.AUTOCHANGE_TIME);
+    }, 2000);
   }
 
   changeSlides(change) {
