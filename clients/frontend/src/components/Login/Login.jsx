@@ -1,14 +1,23 @@
 import React from "react";
-import { Row, Col, Form, Input, Button, Checkbox } from "antd";
+import { Row, Col, Form, Input, Button } from "antd";
+import {useNavigate} from 'react-router-dom';
 import "./style.css";
+// import axios from "axios";
+// import { unwrapResult } from '@reduxjs/toolkit';
+import {login} from 'store/userSlice';
+import { useDispatch } from "react-redux";
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinish = async (value) => {
+     dispatch(login(value));
+  }
+  
+  const onFinishFailed = (errorInfo) => {};
+  const moveLink= () =>{
+    navigate('/register');
+  }
   return (
     <div className="login">
       <div className="container">
@@ -88,7 +97,7 @@ const Login = () => {
                 <p>Hãy đăng ký ngay bằng cách click vào nút bên dưới.</p>
               </div>
               <div >
-                  <Button type="primary" className="login-btn btn2" size="large">Đăng ký ngay</Button>
+                  <Button onClick={moveLink} type="primary" className="login-btn btn2" size="large">Đăng ký ngay</Button>
               </div>
             </Col>
           </Row>

@@ -1,12 +1,30 @@
-import React from "react";
-import { Row, Col } from "antd";
-import { Input } from "antd";
-import { Badge } from "antd";
-import {ShoppingCartOutlined} from '@ant-design/icons';
+import React,{useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+
+import { Row, Col, Input, Badge } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import {useSelector} from 'react-redux';
+import { useNavigate } from "react-router";
 import "./style.css";
+
 const HeaderMid = () => {
   const { Search } = Input;
+  const navigate = useNavigate();
+  const [number, setNumber] = useState(0)
+  const numberCart = useSelector((state) => state.cart.listCart);
+  useEffect(()=>{
+    let total = 0;
+     for(let i=0;i<numberCart.length;i++){
+    total += numberCart[i].quantily;
+    setNumber(total)
+
+  }
+  },[numberCart])
+ 
   const onSearch = () => {};
+  const moveLink = () =>{
+    navigate('/cart')
+  }
   return (
     <>
       <div className="header-mid">
@@ -14,7 +32,12 @@ const HeaderMid = () => {
           <div className="header-mid_main">
             <Row align="middle " justify="center">
               <Col md={4} sm={6}>
-                <img alt="" src="https://theme.hstatic.net/1000282430/1000544102/14/logo-in.png?v=1854" />
+                <Link to="/">
+                  <img
+                    alt=""
+                    src="https://theme.hstatic.net/1000282430/1000544102/14/logo-in.png?v=1854"
+                  />
+                </Link>
               </Col>
               <Col justify="center" md={12} sm={8}>
                 <Search
@@ -23,14 +46,16 @@ const HeaderMid = () => {
                   enterButton
                 />
               </Col>
-              <Col md={3} sm={4} style={{textAlign: 'center'}}>
-                <Badge count={1} >
-                  <ShoppingCartOutlined style={{ fontSize: '30px', color: '#7CA877' }}/>
+              <Col md={3} sm={4} style={{ textAlign: "center" }}>
+                <Badge count={number}>
+                  <ShoppingCartOutlined onClick={moveLink}
+                    style={{ fontSize: "30px", color: "#7CA877" }}
+                  />
                 </Badge>
               </Col>
-              <Col md={5} sm={6} >
+              <Col md={5} sm={6}>
                 <div className="header-mid_hotline">
-                    Hotline: <b>0903.166.228</b>
+                  Hotline: <b>0903.166.228</b>
                 </div>
               </Col>
             </Row>

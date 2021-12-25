@@ -11,7 +11,6 @@ const TitleOption = () => {
   const handleProvinceChange = (value) => {
     setOption(value);
   };
-  console.log(option);
   return (
     <div className="title-option">
       <div className="container">

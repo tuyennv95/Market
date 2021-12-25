@@ -1,0 +1,92 @@
+.show-product-iteam-main{
+    margin-top:30px;
+}
+.show-product-item-img{
+    width:90%;
+}
+.infor-name{
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+}
+.infor-item{
+    display: flex;
+}
+.infor-item p{
+    width: 30%;
+    font-size: 16px;
+}
+.infor-item b{
+    margin-top:2px;
+}
+.show-product-item-des {
+    padding: 30px 0;
+}
+.show-product-item-des h2{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.show-product-item-des p{
+    font-size: 14px;
+    padding-top: 15px;
+}
+
+/* ------------  */
+.show-product-same{
+    padding: 30px 0;
+    height: 600px!important;
+}
+.show-product-same-main{height:100%}
+.slick-slider{
+    height: 100%;
+}
+.slick_slider_list .slider_element img {
+    width: 100%;
+    /* margin: 0 auto; */
+    height: 300px;
+    object-fit: cover;
+    border-left: solid 2px white;
+    border-right: solid 2px white;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center center;
+}
+.slick_slider_list .hihi img {
+    width: 100%;
+    /* margin: 0 auto; */
+    height: 500px;
+    object-fit: cover;
+    border-left: solid 2px white;
+    border-right: solid 2px white;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.slick-list{
+    height: 100%;
+
+}
+.slider_element{
+    width:100%;
+}
+.haha{
+    height: 500px;
+}
+.slick-prev, .slick-next {
+    color:rgb(160, 43, 43)!important;
+    font-size: 20px!important;
+}
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 50px;
+    line-height: 0;
+    opacity: .75;
+    color: rgb(216, 16, 16);
+    -webkit-font-smoothing: antialiased;
+
+}

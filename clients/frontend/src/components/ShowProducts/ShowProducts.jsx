@@ -2,10 +2,12 @@ import React from "react";
 import { Row, Col, Button } from "antd";
 import ProductDetail from "components/ProductDetail/ProductDetail";
 import "./style.css";
-const ShowProducts = () => {
-    const submitButton=()=>{
-        console.log('aaa')
-    }
+const ShowProducts = (props) => {
+  
+  const submitButton = () => {
+    console.log("aaa");
+  };
+
   return (
     <div className="show-products">
       <div className="container">
@@ -16,42 +18,22 @@ const ShowProducts = () => {
             gutter={[8, 16]}
             align="middle"
           >
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
-            <Col className="styleCol" md={6} sm={8} xs={12}>
-              <ProductDetail />
-            </Col>
+            {props &&
+              props?.data?.map((propduct, index) => (
+                <Col className="styleCol" key={propduct.code} md={6} sm={8} xs={12}>
+                  <ProductDetail  data={propduct}/>
+                </Col>
+              ))}
           </Row>
-          <Button type="primary" onClick={submitButton} style={{margin: '200px 0 30px 0'}}>
-          Xem thêm
-        </Button>
+
+          <Button
+            type="primary"
+            onClick={submitButton}
+            style={{ margin: "200px 0 30px 0" }}
+          >
+            Xem thêm
+          </Button>
         </div>
-        
       </div>
     </div>
   );
