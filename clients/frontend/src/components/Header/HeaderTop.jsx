@@ -1,42 +1,85 @@
-import React from 'react';
-import './style.css';
-import {Link} from 'react-router-dom';
-import {PhoneOutlined} from '@ant-design/icons';
-
+import React from "react";
+import "./style.css";
+import { Link } from "react-router-dom";
+import { PhoneOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Badge,Affix} from "antd";
+import { useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { logout } from "store/userSlice";
 const HeaderTop = () => {
-  //  const token  =   localStorage.getItem('token');
+  const token = useSelector(state => state.user?.currentUser)
+  // const token = localStorage.getItem('token')
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const moveLink = () => {
+    navigate("/cart");
+  };
+  const dataCart = useSelector((state) => state.cart.listCart);
+  const numberListCart = dataCart?.reduce((total, item) => total + item.quantily, 0)
+  const clickLog = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+  };
+  return (
+    <Affix offsetTop={0}>
+    <div className="header-top">
+      <div className="container">
+        <div className="header-top_main" style={{ paddingTop: "5px" }}>
+          <ul className="phone-wrap">
+            <li>
+              <PhoneOutlined style={{ fontSize: "24px", color: "#08c" }} />
+              <Link className="link phone-header" to="/">
+                099 999 9999
+              </Link>
+            </li>
+          </ul>
 
-    return (
-      <div className="header-top">
-        <div className="container">
-          <div className="header-top_main" style={{paddingTop: '10px'}}>
-            
-                <ul className="phone-wrap">
-                  <li><PhoneOutlined style={{ fontSize: '24px', color: '#08c' }}/><Link className="link phone-header" to="/">0824 307 307</Link></li>
-                </ul>
-            
-                <ul className="ht-menu">
-                  <li>
-                    <Link style={{fontSize: '14px', color: 'black' }} to="/login" className=""> Đăng nhập </Link>
-                        {/* <div className="dropdown show">
-                          <Link to="#" className=" fix-link-color dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tài khoản
-                          </Link>
-                          <div className="fix-text-item dropdown-menu ht-setting-list " aria-labelledby="dropdownMenuLink">
-                            <Link className="fix-text-item dropdown-item" to="/profile">Tài khoản của bạn</Link>
-                            <Link onClick={this.logOut} to="/login-register" className="fix-text-item dropdown-item" href="/">Đăng xuất</Link>
-                          </div>
-                        </div> */}
-                    
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-    )
-  }
+          <ul className="ht-menu">
+            <li>
+              {token ? (
+                <div className="show-active-login">
+                  <Link
+                    style={{ color: "black" }}
+                    to="/history"
+                    className=" fix-link-color dropdown-toggle"
+                  >
+                    Đơn hàng của tôi
+                  </Link>
+                  <Badge size="small" offset={[-18, 5]} count={numberListCart}>
+                    <ShoppingCartOutlined
+                      onClick={moveLink}
+                      style={{
+                        fontSize: "20px",
+                        color: "#7CA877",
+                        padding: "0 20px",
+                      }}
+                    />
+                  </Badge>
+                  <p
+                    className="logOut link-logout"
+                    onClick={clickLog}
+                  >
+                    Đăng xuất
+                  </p>
+                </div>
+              ) : (
+                <Link
+                  style={{ fontSize: "14px", color: "black" }}
+                  to="/login"
+                  className=""
+                >
+                  {" "}
+                  Đăng nhập{" "}
+                </Link>
+              )}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-
-
+              </Affix>
+  );
+};
 
 export default HeaderTop;

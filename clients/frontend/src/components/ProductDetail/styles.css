@@ -18,7 +18,7 @@
   transition: all 2s;
   background: rgba(255, 255, 255, 0);
   border: solid 2px rgba(0, 0, 0, 0.2);
-  /* z-index: 9; */
+  /* z-index: 2; */
   display: none;
 }
 .product-detail:hover::before {
@@ -71,15 +71,16 @@
   right: 30px;
 }
 .product-detail-hidden {
-  margin-top: 20px;
+  margin-top: 15px;
   display: none;
   transition: all 0.3s;
   position: absolute;
   width: 100%;
   height: auto;
-  z-index: 999;
+  z-index: 1;
   top: 100%;
   background-color: white;
+  padding-bottom:10px;
 }
 .product-detail:hover .product-detail-hidden {
   display: block;
