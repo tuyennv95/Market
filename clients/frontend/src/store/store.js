@@ -7,6 +7,7 @@ import productsReducer from './productsSlice';
 import { applyMiddleware } from 'redux';
 import thunkMiddleware  from 'redux-thunk';
 import cartReducer from './cartSlice';
+import productCountReducer from './productCountSlice';
 
 const middlewares = [thunkMiddleware]
 const middlewareEnhancer = applyMiddleware(...middlewares);
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     products: productsReducer,
     cart: cartReducer,
+    count: productCountReducer,
 });
 
 const persistConfig = {

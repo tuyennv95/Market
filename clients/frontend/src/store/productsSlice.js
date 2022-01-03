@@ -27,20 +27,12 @@ const productsSlice = createSlice({
             state.isLoading = false;
             state.errorMessage = '';
             state.listProducts = action.payload.data;
-
-
         },
         [getProducts.rejected] :(state, action) =>{
             state.isLoading = false;
             state.errorMessage = action.error;
             state.listProducts = [];
-
         }
-
-
-
-        
-
     }
 })
 

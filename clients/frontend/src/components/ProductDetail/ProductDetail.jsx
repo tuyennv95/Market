@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import imageProduct from "Access/image/viet-quat.webp";
 import "./styles.css";
-import { InputNumber, Button, notification, Space } from "antd";
+import { InputNumber, notification,Skeleton  } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { converterMoney } from "utils/converterMoney";
@@ -9,6 +9,8 @@ import { addToCart } from "store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 const ProductDetail = ({ data }) => {
   const [number, setNumber] = useState(1);
+  const valueCart = useSelector((state) => state.cart.listCart);
+  const isLoading = useSelector((state) => state.products.isLoading);
   const dispatch = useDispatch();
   function onChange(value) {
     setNumber(value);
@@ -41,18 +43,18 @@ const ProductDetail = ({ data }) => {
     notification[type]({
       description:
         `Thêm thành công ${number} sản phẩm ${data?.name.toUpperCase()} vào giỏ hàng.`,
+      onClick: console.log('aa')
+      
     });
   };
 
-  const valueCart = useSelector((state) => state.cart.listCart)
-  // console.log("🚀 ~ file: ProductDetail.jsx ~ line 47 ~ ProductDetail ~ valueCart", valueCart)
   useEffect(() => {
       valueCart?.map((item) =>{
-      if(item.id === data.code){
+      if(item?.id === data?.code){
         setNumber(item.quantily);
       }})
-  },[])
-
+  },[valueCart,data?.code])
+  if(isLoading) return <Skeleton />
   return (
     <>
       {data && (
@@ -61,7 +63,7 @@ const ProductDetail = ({ data }) => {
             <div className="product-detail-main">
               <div className="product-detail-hien">
                 <Link
-                  to="/product/id"
+                  to={`/product/${data?.code}`}
                   style={{ overflow: "hidden", maxWidth: "100%" }}
                 >
                   <img
@@ -71,25 +73,25 @@ const ProductDetail = ({ data }) => {
                   />
                 </Link>
                 <div className="product-detail-title">
-                  <Link to="">
+                  <Link to={`/product/${data?.code}`}>
                     <h5 className="product-detail-name">{data?.name}</h5>
                   </Link>
                   {/* <div style={{display: 'flex',justifyContent: 'space-around'}}> */}
 
                   <p
                     className={`product-detail-price ${
-                      data.price.priceSale ? "pdT" : ""
+                      data.price.priceSale && data.price.priceSale > 0 ? "pdT" : ""
                     }`}
                   >
-                    {data.price.priceSale
+                    {data.sale && data.price.priceSale && data.price.priceSale > 0
                       ? converterMoney(data.price.priceSale)
                       : converterMoney(data.price.price)}
                   </p>
-                  {data.price.priceSale && (
+                  {data.sale && data.price.priceSale && data.price.priceSale !== 0 ? (
                     <p className="product-detail-priceSale">
                       {converterMoney(data.price.price)}
                     </p>
-                  )}
+                  ) : null }
 
                   {/* </div> */}
                 </div>

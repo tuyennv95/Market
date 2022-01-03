@@ -1,20 +1,49 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Row, Col, Button } from "antd";
 import ProductDetail from "components/ProductDetail/ProductDetail";
 import "./style.css";
-const ShowProducts = (props) => {
-  
-  const submitButton = () => {
-    console.log("aaa");
-  };
+import queryString from 'query-string';
+import { getProducts } from "store/productsSlice";
+import { useParams } from 'react-router';
 
+import TitleOption from "components/TitleOption/TitleOption";
+import Pagination from "components/PaginationPage/PaginationPage";
+import { useDispatch, useSelector } from "react-redux";
+import {useLocation} from 'react-router-dom';
+
+const ShowProducts = (props) => {
+const dispatch = useDispatch();
+let {id} = useParams();
+
+const location = useLocation();
+const search =  queryString.parse(location?.search);
+const { page,isSale, fieldSorted, sort, key} = search;
+
+useEffect(() => {
+    dispatch(getProducts({
+       categoryCode: id,
+        isSale: isSale,
+        currentPage: page,
+        recordPerPage: 15,
+        fieldSorted : fieldSorted,
+        typeSorted: sort,
+        keyword: key,
+
+      }));
+}, [dispatch, page,isSale,sort,key,id]);
+
+  
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, [page])
   return (
     <div className="show-products">
       <div className="container">
+      <TitleOption />
         <div className="show-products-main">
           <Row
             justify="space-between"
-            style={{ flexWrap: "wrap" }}
+            style={{ flexWrap: "wrap", marginBottom:'200px' }}
             gutter={[8, 16]}
             align="middle"
           >
@@ -26,13 +55,7 @@ const ShowProducts = (props) => {
               ))}
           </Row>
 
-          <Button
-            type="primary"
-            onClick={submitButton}
-            style={{ margin: "200px 0 30px 0" }}
-          >
-            Xem thêm
-          </Button>
+          <Pagination count={props?.count}/>
         </div>
       </div>
     </div>

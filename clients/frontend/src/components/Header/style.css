@@ -38,6 +38,8 @@
   } */
   .header-top{
     height:50px;
+    border-bottom: 1px solid gray;
+    background-color:#FFFFFF;
   }
   .header-top_main{
     height: 100%;
@@ -46,6 +48,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
   }
   .phone-header{
     font-size: 16px;
@@ -73,4 +76,11 @@
     color: #ffffff;
     /* font-size: 16px; */
 
+  }
+  .link-logout{
+    cursor: pointer;
+  }
+  .show-active-login{
+    display:flex;
+    padding-top:10px;
   }

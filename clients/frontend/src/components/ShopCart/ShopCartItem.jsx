@@ -21,10 +21,9 @@ const ShopCartItem = ({ data }) => {
 
   useEffect(() => {
     setValue1(data.quantily)
-  },[])
+  },[data.quantily])
   const removeCartItem = () => {
     dispatch(delCartItem({id:data?.id}))
-    console.log(data.id)
   }
 
   return (

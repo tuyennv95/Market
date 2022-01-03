@@ -7,28 +7,11 @@ import Menu from "./components/Menu/Menu";
 import Footer from "components/Footer/Footer";
 import Router from "Router/Router";
 function App() {
-  // const hihi = () => {
-  //   axios
-  //     .post("http://localhost:8090/authenticate?username=admin&password=admin", 
-  //     {
-  //       data:{
-
-  //       }
-  //     },
-  //     {
-  //       headers: {
-  //         clientId: "employee",
-  //         contentType: "application/json",
-  //       },
-      
-  //     })
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  // };
+  
   return (
     <>
       <HeaderTop />
-      <hr />
+      {/* <hr /> */}
       <HeaderMid />
       {/* <Button onClick={hihi}>dddddddd</Button>/ */}
       <Menu />

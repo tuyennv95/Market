@@ -1,7 +1,7 @@
 import axiosConfig from "./axiosConfig";
 const userApi = {
   register(data) {
-    const url = "/v1/customer/registration";
+    const url = "/v1/customer/public/registration";
     return axiosConfig.post(url, data);
   },
   login(data) {

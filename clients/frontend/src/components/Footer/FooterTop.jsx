@@ -128,18 +128,17 @@ const FooterTop = () => {
                   <p className="footer-top-menu-title">Giờ mở cửa</p>
                   <ul className="footer-top-menu-list">
                     <li className="footer-top-menu-item-link">
-                      21 Thảo Điền, Phường Thảo Điền, Thành phố Thủ Đức 7h00 –
-                      21h30 Từ Thứ Hai đến Chủ Nhật <br /> Cửa hàng: 028
-                      3519.1610
+                      99 Trâu Quỳ, Gia Lâm, Thành phố Hà Nội 7h00 –
+                      21h30 Từ Thứ Hai đến Chủ Nhật <br /> Cửa hàng: 099999999
                     </li>
                     <li className="footer-top-menu-item-link">
-                      303 Nguyễn Văn Trỗi, Phường 1, Quận Tân Bình 8h00 – 22h00
+                    999 Trâu Quỳ, Gia Lâm, Thành phố Hà Nội 8h00 – 22h00
                       Từ Thứ Hai đến Chủ Nhật <br />
-                      Cửa hàng: 028 3842.1275
+                      Cửa hàng: 0999999999
                     </li>
                     <li className="footer-top-menu-item-link">
-                      06 Nguyễn Thị Minh Khai, Phường Đakao ,Quận 1 7h00 – 21h30
-                      Từ Thứ Hai đến Chủ Nhật <br/>Cửa hàng: 028 3636 8325
+                    9999 Trâu Quỳ, Gia Lâm, Thành phố Hà Nội 7h00 – 21h30
+                      Từ Thứ Hai đến Chủ Nhật <br/>Cửa hàng: 099999999
                     </li>
                   </ul>
                 </Col>

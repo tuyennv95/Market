@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 import categoryApi from "api/categoryApi";
+import { Affix } from 'antd';
 const Menu = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -58,6 +59,7 @@ const Menu = () => {
   return (
     <>
       {data && (
+        <Affix offsetTop={50}>
         <div className="menu">
           <div className="container">
             <div className="menu-main">
@@ -65,7 +67,8 @@ const Menu = () => {
             </div>
           </div>
         </div>
-      )}
+        </Affix>
+    )}
     </>
   );
 };

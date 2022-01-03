@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form, Input, Button } from "antd";
+import { Row, Col, Form, Input, Button,message } from "antd";
 import {useNavigate} from 'react-router-dom';
 import "./style.css";
 // import axios from "axios";
@@ -9,9 +9,23 @@ import { useDispatch } from "react-redux";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const success = () => {
+    message.success('Đăng nhập thành công');
+  };
+  const error = () => {
+    message.error('Thử lại. Đăng nhập không thành công.');
+  };
   const onFinish = async (value) => {
-     dispatch(login(value));
+    const dataLogin = await dispatch(login(value));
+    console.log("🚀 ~ file: Login.jsx ~ line 15 ~ onFinish ~ dataLogin", dataLogin)
+    if(dataLogin.payload){
+      success();
+      setTimeout(() => {
+        navigate('/');
+      }, 2000)
+    }else{
+      error();
+    }
   }
   
   const onFinishFailed = (errorInfo) => {};

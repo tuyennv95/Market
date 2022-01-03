@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
-import BreadCrumb from "components/Breadcrumb/Breadcrumb";
 import Banner from "components/Banner/Banner";
 import ShowProducts from "components/ShowProducts/ShowProducts";
-import TitleOption from "components/TitleOption/TitleOption";
-import { getProducts } from "store/productsSlice";
-import { useDispatch } from "react-redux";
+import {getCount } from 'store/productCountSlice'
+import { useDispatch, useSelector } from "react-redux";
+import {useLocation} from 'react-router-dom';
+import queryString from 'query-string';
+
 const Home = () => {
   const dispatch = useDispatch();
-  const [listData, setListData] = useState()
+  const listData = useSelector(state => state.products.listProducts);
+  const count = useSelector(state => state.count.count);
+  const location = useLocation();
+  const search =  queryString.parse(location?.search);
+  const {isSale} = search;
+
   useEffect(() => {
-    async function getData() {
-      const dataProducts = await dispatch(
-        getProducts({
-          // currentPage: 1,
-          recordPerPage: 100,
-        })
-      );
-    setListData(dataProducts.payload.data)
-
-    }
-
-    getData();
-  }, [dispatch]);
+    dispatch(getCount({ 
+      isSale: isSale,
+      recordPerPage: 1000,
+    }))
+  },[dispatch,isSale])
   return (
     <div>
       <Banner />
-      <BreadCrumb />
-      <TitleOption />
+     
       <ShowProducts data={listData}/>
     </div>
   );

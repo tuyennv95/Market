@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { Row, Col, Input, Badge } from "antd";
@@ -10,18 +10,12 @@ import "./style.css";
 const HeaderMid = () => {
   const { Search } = Input;
   const navigate = useNavigate();
-  const [number, setNumber] = useState(0)
-  const numberCart = useSelector((state) => state.cart.listCart);
-  useEffect(()=>{
-    let total = 0;
-     for(let i=0;i<numberCart.length;i++){
-    total += numberCart[i].quantily;
-    setNumber(total)
-
-  }
-  },[numberCart])
+  const dataCart = useSelector((state) => state.cart.listCart);
+  const numberListCart = dataCart?.reduce((total, item) => total + item.quantily, 0)
  
-  const onSearch = () => {};
+  const onSearch = (value) => {
+    navigate(`/search?key=${value}`)
+  };
   const moveLink = () =>{
     navigate('/cart')
   }
@@ -47,7 +41,7 @@ const HeaderMid = () => {
                 />
               </Col>
               <Col md={3} sm={4} style={{ textAlign: "center" }}>
-                <Badge count={number}>
+                <Badge count={numberListCart}>
                   <ShoppingCartOutlined onClick={moveLink}
                     style={{ fontSize: "30px", color: "#7CA877" }}
                   />
@@ -55,7 +49,7 @@ const HeaderMid = () => {
               </Col>
               <Col md={5} sm={6}>
                 <div className="header-mid_hotline">
-                  Hotline: <b>0903.166.228</b>
+                  Hotline: <b>099.999.9999</b>
                 </div>
               </Col>
             </Row>

@@ -8,6 +8,10 @@ const productsApi = {
     getProducts(data){
         const url = '/v1/product/public/pageable';
         return axiosConfig.post(url, data);
+    },
+    getProductDetail(id){
+        const url = `/v1/product/public/${id}`;
+        return axiosConfig.get(url);
     }
 }
 export default productsApi;

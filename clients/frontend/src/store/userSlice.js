@@ -13,7 +13,7 @@ export const login = createAsyncThunk('user/login', async (payload) =>{
     return data2;
 })
 
-const initialState ={
+const initialState = {
     isLoading: false,
     errorMessage: '',
     currentUser: null,
@@ -23,8 +23,10 @@ const userSlice = createSlice({
     initialState: initialState,
     reducers:{
         logout(state){
-            state.errorMessage = '1234556'
-        }
+            state.isLoading = false;
+            state.errorMessage = '';
+            state.currentUser = null;
+        },
     },
     extraReducers:{
         [registerUser.pending]: (state) =>{
@@ -32,7 +34,7 @@ const userSlice = createSlice({
         },
         [registerUser.fulfilled] :(state, action) =>{
             state.isLoading = false;
-            state.currentUser = action.payload.data.result;
+            state.currentUser = action.payload;
             state.errorMessage = '';
 
 
