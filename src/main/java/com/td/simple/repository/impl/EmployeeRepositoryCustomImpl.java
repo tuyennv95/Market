@@ -7,8 +7,11 @@ import com.td.simple.model_info.employee.EmployeePageableInfo;
 import com.td.simple.repository.EmployeeRepositoryCustom;
 import com.td.simple.utils.QueryUtils;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
@@ -27,6 +30,19 @@ public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
     @Override
     public Long count(EmployeePageableInfo info, CurrentUser currentUser) {
         return mongoTemplate.count(buildSearchQuery(info, true), Employee.class);
+    }
+
+    @Override
+    public void updatePassword(CurrentUser currentUser, String newPassword) {
+        Query query = new Query(Criteria.where("username").is(currentUser.getUsername()));
+
+        Update update = new Update();
+
+        update.set("password", newPassword);
+        update.set("lastModifiedDate", LocalDateTime.now());
+        update.set("lastModifiedBy", currentUser.getUsername());
+
+        mongoTemplate.updateFirst(query, update, Employee.class);
     }
 
     private Query buildSearchQuery(EmployeePageableInfo model, boolean countable) {

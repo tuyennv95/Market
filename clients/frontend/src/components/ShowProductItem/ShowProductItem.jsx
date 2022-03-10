@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import { Row, Col, Button, InputNumber, notification } from "antd";
+import { Row, Col, Button, InputNumber, notification,Tag } from "antd";
 import { converterMoney } from "utils/converterMoney";
 import { addToCart } from "store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-const ShowProductItem = ({data}) => {
+import { useNavigate } from "react-router";
+import parse from 'html-react-parser';
+
+const ShowProductItem = ({ data }) => {
   const [number, setNumber] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dataListCart = useSelector((state) => state.cart.listCart);
-  
   useEffect(() => {
-    dataListCart.map((item) => {
+    dataListCart?.map((item) => {
       if (item.id === data?.code) {
-        setNumber(item.quantily)
+        setNumber(item.quantily);
       }
     });
   }, [data?.code, dataListCart]);
- 
-  
+
   const onChange = (value) => {
     setNumber(value);
   };
@@ -45,11 +47,20 @@ const ShowProductItem = ({data}) => {
     if (listAdd.payload) {
       openNotificationWithIcon("success");
     }
+    // console.log({
+    //   id: data.code,
+    //    quantily: number,
+    //    price: price1,
+    //      total: total,
+    //    product: data,})
   };
-
+  
   const openNotificationWithIcon = (type) => {
     notification[type]({
       description: `Thêm thành công ${number} sản phẩm ${data?.name.toUpperCase()} vào giỏ hàng.`,
+      onClick: () => {
+        navigate('/cart')
+      },
     });
   };
   return (
@@ -112,11 +123,16 @@ const ShowProductItem = ({data}) => {
                       <p>Số lượng:</p>
                       <InputNumber
                         min={1}
-                        max={10}
-                        defaultValue={1}
-                        value={number}
+                        max={data?.quantity}
+                        defaultValue={0}
+                        value={data?.quantity <=0 ? 0 : number}
                         onChange={onChange}
                       />
+                    </div>
+                    <hr style={{ marginBottom: "15px" }} />
+                    <div className="infor-item">
+                      <p>Còn lại:</p>
+                      <Tag color="magenta">{data?.quantity}</Tag>
                     </div>
                     <hr style={{ marginBottom: "15px" }} />
 
@@ -128,6 +144,7 @@ const ShowProductItem = ({data}) => {
                     </div>
                   </div>
                   <Button
+                    disabled={data?.quantity <= 0 ? true : false}
                     style={{ margin: "20px 0" }}
                     type="primary"
                     size="large"
@@ -140,10 +157,9 @@ const ShowProductItem = ({data}) => {
               <div className="show-product-item-des">
                 <h2>Mô tả</h2>
                 <hr />
-                <p>
-                  Trái Quýt được tuyển chọn tại vườn ở Đồng Bằng Sông Cửu Long,
-                  quýt có vị ngọt thanh, vỏ căng bóng, đẹp và tươi.
-                </p>
+                <div>
+                  {parse(data?.note || "Đang cập nhật...")}
+                </div>
               </div>
             </div>
           </div>

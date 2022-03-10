@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { Table, Space, Tag } from "antd";
+import { Table, Space, Tag, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteUser } from "redux/actions/AsyncCustomer";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { money } from "utils/money";
+import {deleteProductAct} from 'redux/actions/AsyncProduct';
+import slug from 'slug';
 const EditTableUser = ({ data }) => {
-  console.log("🚀 ~ data", data);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const EditCustom = (nameUserDel) => {
-    history.push(`/customers/edit-user/${nameUserDel}`);
+  const EditCustom = (record) => {
+    history.push(`/products/edit-product/${record.code}.${slug(record.name)}`);
   };
-  const DelCustom = (nameUserDel) => {
-    dispatch(deleteUser(nameUserDel));
+  const DelCustom = (nameProductDel) => {
+    dispatch(deleteProductAct(nameProductDel));
   };
   const columns = [
     {
@@ -49,10 +49,10 @@ const EditTableUser = ({ data }) => {
       width: 100,
       key: "priceProduct",
       render: (priceProduct) => (
-        <Tag color='green' key={priceProduct}>
-        {money(priceProduct)}
-      </Tag>
-       ),
+        <Tag color="green" key={priceProduct}>
+          {money(priceProduct)}
+        </Tag>
+      ),
     },
     {
       title: "Giá khuyến mãi",
@@ -60,10 +60,10 @@ const EditTableUser = ({ data }) => {
       width: 100,
       key: "priceProductSale",
       render: (priceProductSale) => (
-        <Tag color='blue' key={priceProductSale}>
-        {money(priceProductSale)}
-      </Tag>
-       ),
+        <Tag color="blue" key={priceProductSale}>
+          {money(priceProductSale)}
+        </Tag>
+      ),
     },
     {
       title: "Khuyến mại",
@@ -71,8 +71,7 @@ const EditTableUser = ({ data }) => {
       width: 100,
       key: "sale",
       render: (sale) => (
-
-        <Tag color={`${sale ? 'red' : 'blue'}`} key={sale}>
+        <Tag color={`${sale ? "red" : "blue"}`} key={sale}>
           {sale ? "ON SALE" : "OFF SALE"}
         </Tag>
       ),
@@ -98,11 +97,20 @@ const EditTableUser = ({ data }) => {
     {
       title: "Action",
       key: "action",
+      fixed: "right",
       render: (record) => (
         <Space size="middle">
           {/* <a onClick={() => EditCustom(record.code)}>Edit</a> */}
-          <EditOutlined onClick={() => EditCustom(record.username)} />
-          <DeleteOutlined onClick={() => DelCustom(record.username)} />
+          <EditOutlined onClick={() => EditCustom(record)} />
+          <Popconfirm
+            title={`Bạn muốn xóa sản phẩm ${record?.name}`}
+            onConfirm={() => DelCustom(record?.code)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined />
+          </Popconfirm>
+          ,
         </Space>
       ),
     },
@@ -113,7 +121,7 @@ const EditTableUser = ({ data }) => {
   return (
     <div>
       <Table
-        scroll={{ x: 1500 }}
+        scroll={{ x: 1300 }}
         dataSource={data}
         columns={columns}
         onSelect={onSelects}

@@ -1,5 +1,5 @@
 import React from "react";
-import {Table,Space} from 'antd';
+import {Table,Space,Popconfirm} from 'antd';
 import {EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { deleteUser } from "redux/actions/AsyncCustomer"; 
 import { useDispatch } from "react-redux";
@@ -10,10 +10,12 @@ const history = useHistory();
   const EditCustom = (nameUserDel) =>{
     history.push(`/customers/edit-user/${nameUserDel}`);
   }
-  const DelCustom = (nameUserDel) =>{
-    dispatch(deleteUser(nameUserDel))
+  const DelCustom = async (nameUserDel) =>{
+    const del = await dispatch(deleteUser(nameUserDel))
+    console.log('🚀 ~ del', del);
 
   }
+ 
   const columns = [
     {
       title: "ID",
@@ -42,7 +44,14 @@ const history = useHistory();
         <Space size="middle">
           {/* <a onClick={() => EditCustom(record.code)}>Edit</a> */}
           <EditOutlined onClick={() => EditCustom(record.username)}/>
-          <DeleteOutlined onClick={() => DelCustom(record.username)}/>
+          <Popconfirm
+            title={`Bạn muốn xóa người dùng ${record?.username}`}
+            onConfirm={() => DelCustom(record?.username)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined />
+          </Popconfirm>
         </Space>
       ),
     },
@@ -52,7 +61,7 @@ const history = useHistory();
   }
   return (
     <div>
-      <Table dataSource={data} columns={columns} onSelect={onSelects} />;
+      <Table  dataSource={data} columns={columns} onSelect={onSelects} />;
     </div>
   );
 };

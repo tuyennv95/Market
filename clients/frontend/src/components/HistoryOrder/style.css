@@ -1,0 +1,207 @@
+.historyOrderItem {
+  /* border:1px solid #ccc; */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.img-order-item {
+  width: 100px;
+  height: 100px;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 65%;
+  margin-left: 30px;
+}
+.name {
+  font-weight: 700;
+  font-size: 18px;
+}
+.button {
+  margin-top: 25px;
+  margin-left: 20px;
+}
+.total {
+  padding-top: 10px;
+  font-size: 16px;
+  color: red;
+}
+
+.button2 {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+.item {
+  border-bottom: 1px dashed #ccc;
+}
+.check {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: red;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 40px 0px 0px;
+  border-bottom: 1px dashed #ccc;
+}
+.container1 {
+  background-color: #ffffff;
+}
+/* -------  */
+.orderDetail {
+  background-color: #f4f2f2;
+}
+.order-detail-main {
+  width: 80%;
+  margin-left: 180px;
+  position: relative;
+}
+.order-id {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column-flex;
+  justify-content: end;
+  padding: 20px 0 0px 0;
+  border-radius: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+.order-id::after {
+  content: "";
+  position: absolute;
+  border-right: 1px solid black;
+  height: 18px;
+  right: 225px;
+}
+
+.order-id p {
+  margin-right: 22px;
+}
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  /* padding: 20px; */
+  /* border-radius:10px; */
+}
+.timeline1 {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-bottom: 1px dotted rgb(52, 214, 220);
+  padding: 20px;
+  /* border-radius:10px; */
+}
+.pd-timeline{
+  padding:20px;
+}
+.text-order {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+.text-order p {
+  margin: 10px 60px 0 40px;
+}
+
+.icon-timeline {
+  font-size: 60px;
+  color: rgb(21, 194, 50) !important;
+  padding: 60px 60px 10px 60px;
+}
+.icon-timeline-left::after {
+  content: "";
+  position: absolute;
+  width: 75%;
+  height: 5px;
+  color: red;
+  border-top: 5px solid rgb(21, 194, 50);
+  top: 145px;
+}
+.time-order {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding-bottom: 20px;
+  border-bottom: 1px dotted rgb(52, 214, 220);
+}
+.time-order p {
+  margin: 10px 40px 0 40px;
+  color: #c2b8b8;
+  font-size: 12px;
+}
+.address {
+  background-color: #ffffff;
+  border-radius: 15px;
+  border-bottom: 1px dashed gray;
+}
+.address h2 {
+  padding: 20px 0 20px 30px;
+}
+.add-order {
+  margin-left: 60px;
+}
+.name-add-order {
+  font-size: 18px;
+  font-weight: 500;
+}
+.products-order,
+.total-order {
+  background-color: #ffffff;
+  border-radius: 15px;
+  border-bottom: 1px dashed gray;
+}
+.total-order-item {
+  display: flex;
+  justify-content: end;
+  text-align: right;
+}
+.item-key {
+  width: 80%;
+  border: 1px dashed rgba(128, 128, 128, 0.515);
+  padding: 10px 10px;
+}
+.item-value {
+  width: 20%;
+  margin-right: 20px;
+  border: 1px dashed rgba(128, 128, 128, 0.515);
+  padding: 10px 0;
+}
+/* --------------- */
+.hoadon{
+    width: 100%;
+    /* height: 100vh; */
+}
+.hoadon-main{
+    width: 80%;
+    margin:0 auto;
+    padding: 30px 5px;
+    text-align: center;
+}
+.title-hoadon{
+    font-size: 30px;
+}
+.table{
+    width:90%;
+    margin:0 auto;
+    margin-top:50px;
+}
+.table th{
+    padding:0 20px 20px 20px;
+}
+.table td{
+    padding:0 20px 20px 20px;
+
+}
+.box{
+    text-align:left;
+}
+.bottom{
+    display: flex;
+    justify-content:space-between;
+}
+.bottom p{
+    padding: 20px;
+}
+
+
+

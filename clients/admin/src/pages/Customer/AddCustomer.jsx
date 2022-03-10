@@ -30,11 +30,9 @@ import {useHistory} from 'react-router-dom'
   },[redirect])
   const onFinish = async (values) => {
     const reg = await dispatch(registerUser(values));
-    console.log('🚀 ~ reg', reg);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   const handleUploadFile = async (file) => {
     try {

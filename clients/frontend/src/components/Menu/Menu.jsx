@@ -59,7 +59,7 @@ const Menu = () => {
   return (
     <>
       {data && (
-        <Affix offsetTop={50}>
+        // <Affix style={{zIndex:20}} offsetTop={50}>
         <div className="menu">
           <div className="container">
             <div className="menu-main">
@@ -67,7 +67,7 @@ const Menu = () => {
             </div>
           </div>
         </div>
-        </Affix>
+        // </Affix>
     )}
     </>
   );

@@ -31,6 +31,10 @@ const userApi = {
   editUser(data){
     const url = "/v1/customer/private";
     return axiosConfig.put(url, data);
+  },
+  getCountUser(data){
+    const url = "/v1/customer/private/count";
+    return axiosConfig.post(url, data);
   }
 };
 export default userApi;

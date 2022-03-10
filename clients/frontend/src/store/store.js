@@ -8,6 +8,7 @@ import { applyMiddleware } from 'redux';
 import thunkMiddleware  from 'redux-thunk';
 import cartReducer from './cartSlice';
 import productCountReducer from './productCountSlice';
+import orderReducer from './orderSlice';
 
 const middlewares = [thunkMiddleware]
 const middlewareEnhancer = applyMiddleware(...middlewares);
@@ -19,12 +20,13 @@ const rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
     count: productCountReducer,
+    order: orderReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ['user', 'cart'],
+  whitelist: ['user', 'cart', 'products'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

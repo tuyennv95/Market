@@ -11,14 +11,14 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
  const EditCustomer = (props) => {
   const {isLoading, redirect} = useSelector((state) => state.LoadingReducer);
   const {user} = useSelector((state) => state.CustomerReducer);
-  console.log('🚀 ~ user', user);
   const {id} = props?.match?.params;
+  console.log('🚀 ~ id', id);
    const dispatch = useDispatch();
  const history = useHistory();
   const [image, setImage] = useState("");
   const [form] = Form.useForm()
   const success = () => {
-    message.success('Thêm thành công');
+    message.success('Sửa thành công');
   };
   useEffect(() => {
     dispatch(getUserDetail(id));
@@ -29,29 +29,43 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
 //     })
 //   },[user])
 
-   const valueInput = {
-        fullName: user?.fullName,
-        phone: user?.phone,
+  //  const valueInput = {
+  //       fullName: user?.fullName,
+  //       email: user?.email || "",
+  //       note: image,
+  //   }
+  //  console.log('🚀 ~ valueInput', valueInput);
+   useEffect(() => {
+    setImage(user?.note)
+    form.setFieldsValue({
+      fullName: user?.fullName,
         email: user?.email || "",
-        avatar: image,
-    }
-        
+        image: image,
 
+    });
+  }, [user]);
+ 
 
+  const fileImage = [{
+    uid:1,
+    url: image,
+  }];
   useEffect(()=>{
     if(redirect){
       dispatch({type: CANCEL_REDIRECT});
       success();
       setTimeout(()=>{
           history.push('/customers')
-      }, 1000)
+      }, 2000)
 
     }
   },[redirect])
   const onFinish = async ( values) => {
-      const dataInput = {...values, avatar: image}
-      await dispatch(editUser(dataInput));
+      const dataInput = {...values, username: id, note: image}
+     const editU =  await dispatch(editUser(dataInput));
+      // console.log('🚀 ~ values', values);
     
+      // console.log('🚀 ~ values', values);
   };
   const handleUploadFile = async (file) => {
     try {
@@ -72,7 +86,7 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
 
   return (
     <div>
-      <h2>Thay đổi thông tin người dùng</h2>
+      <h2>Chỉnh sửa thông tin người dùng</h2>
     
     {isLoading ?
     <Spin />  
@@ -83,12 +97,13 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
       
       <div className="add-form">
         <Form
+        form={form}
           name="basic"
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           onFinish={onFinish}
           autoComplete="off"
-          initialValues={valueInput}
+          // initialValues={valueInput}
         >
           <Form.Item
             label="FullName"
@@ -98,7 +113,7 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
             <Input {...props}/>
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             label="Phone"
             name="phone"
             rules={[
@@ -106,18 +121,19 @@ import { getUserDetail,editUser } from "redux/actions/AsyncCustomer";
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
          
             
               <Form.Item label="Email" name="email">
                 <Input />
               </Form.Item>
 
-              <Form.Item label="Avatar" name="avatar">
+              <Form.Item label="Avatar" name="image">
                 <Upload
-                  
+                  fileList={fileImage}
                   listType="picture-card"
                   //   showUploadList={false}
+                  name="image"
                   beforeUpload={handleUploadFile}
                   maxCount={1}
                   accept=".jpg, .png"

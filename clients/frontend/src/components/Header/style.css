@@ -84,3 +84,51 @@
     display:flex;
     padding-top:10px;
   }
+  .hello-username{
+    cursor: pointer;
+
+  }
+.setting-user{
+  position: relative;
+  transition: all 3s;
+
+}
+.dropdown{
+  position: absolute;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 999;
+  background:rgb(255, 255, 255);
+  width: 150px;
+  top:30px;
+  display: none;
+  transition: all 3s;
+}
+.dropdown::after{
+  content: "";
+  width:15px;
+  height:15px; 
+  background:rgb(255, 255, 255);
+  z-index: 999;
+
+  border-top:1px solid  #ccc;
+  border-right:1px solid #ccc;
+  z-index: 100;
+  position: absolute;
+  top:-8px;
+  right:40px;
+  transform: rotate(-45deg);
+}
+
+.fix-link-color{
+  display: inline-block;
+  padding-top: 5px;
+}
+.fix-link-color:hover{
+  color:rgb(196, 49, 49)
+}
+.setting-user:hover .dropdown{
+  display: inline-block;
+  transition: all 3s;
+
+}

@@ -1,5 +1,6 @@
 package com.td.simple.service.impl;
 
+import com.google.common.base.Strings;
 import com.td.simple.model.account.CurrentUser;
 import com.td.simple.model.employee.Employee;
 import com.td.simple.model.employee.EmployeeStatusType;
@@ -13,14 +14,12 @@ import com.td.simple.repository.EmployeeRepository;
 import com.td.simple.service.EmployeeService;
 import com.td.simple.utils.NextSequenceService;
 import com.td.simple.utils.StringUtils;
-import org.apache.commons.text.WordUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,11 +73,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (StringUtils.isNullOrEmpty(employee.getPassword())) {
             employee.setPassword(defaultPassword);
         }
-        employee.setFullName(StringUtils.buildFullName(employee.getFullName()));
+
         employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
+        employee.buildFullName();
 
         // Tách tên nhập vào ra Họ, Tên, Tên đệm
-        processNameEmployee(employee);
+        employee.buildFullName();
+        employee.processName();
         // Khởi tạo giá trị mặc định.
         initDefault(employee);
         employee.makeTextSearch();
@@ -162,7 +163,61 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResult<EmployeeViewDto> update(EmployeeUpdateInfo model, CurrentUser currentUser) {
-        return null;
+        ApiResult<EmployeeViewDto> apiResult = new ApiResult<>();
+        // Kiểm tra tồn tại
+        Employee modelDb = repository.findFirstByUsername(model.getUsername()).orElse(null);
+
+        if (modelDb == null) {
+            return notExists();
+        }
+
+        if (validateUpdate(apiResult, modelDb, model)) {
+            return apiResult;
+        }
+
+        mapper().map(model, modelDb);
+
+        modelDb.buildFullName();
+        modelDb.processName();
+        modelDb.makeTextSearch();
+
+        apiResult.setResult(mapToView(repository.save(modelDb)));
+
+        return apiResult;
+    }
+
+    boolean validateUpdate(ApiResult<EmployeeViewDto> apiResult, Employee modelDb, EmployeeUpdateInfo model) {
+        // Họ tên để trống
+        if (StringUtils.isNullOrEmpty(model.getFullName())) {
+            apiResult.setError(true);
+            apiResult.setCode("FULL_NAME_NOT_NULL");
+
+            return true;
+        }
+
+        // SDT để trống
+        if (StringUtils.isNullOrEmpty(model.getPhone())) {
+            apiResult.setError(true);
+            apiResult.setCode("PHONE_NOT_NULL");
+
+            return true;
+        }
+
+        // SDT đã tồn tại
+        if (!modelDb.getPhone().equals(model.getPhone()) && repository.existsByPhone(model.getPhone())) {
+            apiResult.setError(true);
+            apiResult.setCode("PHONE_EXISTED");
+
+            return true;
+        }
+
+        // email đã tồn tại
+        if (!modelDb.getPhone().equals(model.getPhone()) && !StringUtils.isNullOrEmpty(model.getEmail()) && repository.existsByEmail(model.getEmail())) {
+            apiResult.setError(true);
+            apiResult.setCode("EMAIL_EXISTED");
+        }
+
+        return false;
     }
 
     @Override
@@ -214,7 +269,63 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResult<Boolean> updatePassword(UpdatePasswordInfo info, CurrentUser currentUser) {
-        return null;
+        ApiResult<Boolean> apiResult = new ApiResult<>();
+
+        // Kiểm tra tồn tại
+        Employee modelDb = repository.findFirstByUsername(currentUser.getUsername()).orElse(null);
+
+        if (modelDb == null) {
+            apiResult.setError(true);
+            apiResult.setCode("NOT_EXISTS");
+            apiResult.setMessage("Bản ghi không tồn tại");
+
+            return apiResult;
+        }
+
+        // Dữ liệu để trống
+        if (Strings.isNullOrEmpty(info.getCurrentPassword()) || Strings.isNullOrEmpty(info.getNewPassword()) ||
+                Strings.isNullOrEmpty(info.getVerifyPassword())) {
+            apiResult.setError(true);
+            apiResult.setCode("DATA_UPDATE_PASSWORD_NULL");
+            apiResult.setMessage("Dữ liệu thay đổi password không được để trống");
+
+            return apiResult;
+        }
+
+        // Mật khẩu xác nhận không trùng
+        if (!info.getNewPassword().equals(info.getVerifyPassword())) {
+            apiResult.setError(true);
+            apiResult.setCode("UPDATE_PASSWORD_VERIFY_FALSE");
+            apiResult.setMessage("Mật khẩu xác nhận không trùng");
+
+            return apiResult;
+        }
+
+        // Mật khẩu cũ không đúng
+        if (!new BCryptPasswordEncoder().matches(info.getCurrentPassword(), modelDb.getPassword())) {
+            apiResult.setError(true);
+            apiResult.setCode("PASSWORD_EXISTS");
+            apiResult.setMessage("Mật khẩu cũ không đúng");
+
+            return apiResult;
+        }
+
+        // Mật khẩu mới trùng với mật khẩu cũ
+        if (new BCryptPasswordEncoder().matches(info.getNewPassword(), modelDb.getPassword())) {
+            apiResult.setError(true);
+            apiResult.setCode("DUPLICATE_PASSWORD");
+            apiResult.setMessage("Mật khẩu mới trùng với mật khẩu cũ");
+
+            return apiResult;
+        }
+
+        info.setNewPassword(new BCryptPasswordEncoder().encode(info.getNewPassword()));
+
+        repository.updatePassword(currentUser, info.getNewPassword());
+
+        apiResult.setResult(true);
+
+        return apiResult;
     }
 
     // ===================================
@@ -233,28 +344,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    public void processNameEmployee(Employee modelToAdd) {
-        String name = modelToAdd.getFullName();
-        name = name.replace("  ", " ");
-        name = name.trim();
-        name = WordUtils.capitalize(name);
-
-        String[] names = name.split(" ");
-
-        // Lấy ra tên.
-        modelToAdd.setLastName(names[names.length - 1]);
-
-        // Lấy ra họ
-        if (names.length > 1) {
-            modelToAdd.setFirstName(names[0]);
-        }
-
-        // Lấy ra tên đệm
-        if (names.length > 2) {
-            modelToAdd.setMiddleName(String.join(" ", Arrays.copyOfRange(names, 1, names.length - 1)));
-        }
-    }
-
     // ===================================
 
     /**
@@ -265,6 +354,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         apiResult.setError(true);
         apiResult.setCode("NOT_EXISTS");
+        apiResult.setMessage("Bản ghi không tồn tại");
 
         return apiResult;
     }

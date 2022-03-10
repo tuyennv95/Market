@@ -48,4 +48,6 @@ public class CurrentUser implements Serializable {
     private List<String> departmentModes;
 
     private List<String> ancestorsDepartmentCode;
+
+    private List<String> productFavorite;
 }

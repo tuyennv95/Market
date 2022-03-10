@@ -23,15 +23,6 @@ public class Employee extends Account {
     // Trạng thái nhân viên
     private EmployeeStatusType status;
 
-    // Họ
-    private String firstName;
-
-    // Tên
-    private String lastName;
-
-    // Họ đệm
-    private String middleName;
-
     // Mã chức vụ.
     private String titleCode;
 

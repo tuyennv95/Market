@@ -5,9 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.td.simple.common.BankAccount;
-import com.td.simple.common.EmployeeBase;
-import com.td.simple.model.customer.CustomerAddress;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +13,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -27,6 +22,8 @@ import java.util.Map;
 public class CustomerViewDto implements Serializable {
 
     private String avatar;
+
+    private String code;
 
     private String username;
 
@@ -58,9 +55,7 @@ public class CustomerViewDto implements Serializable {
     private String note;
 
     // Nhân viên Sale phụ trách
-    private EmployeeBase sale;
-
-    private List<BankAccount> bankAccounts;
+//    private EmployeeBase sale;
 
     // Sinh nhật
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -71,9 +66,6 @@ public class CustomerViewDto implements Serializable {
     private boolean married;
 
     private BigDecimal moneySpent;
-
-    @Builder.Default
-    private List<CustomerAddress> address = new ArrayList<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -88,5 +80,4 @@ public class CustomerViewDto implements Serializable {
     private LocalDateTime lastModifiedDate;
 
     private String lastModifiedBy;
-
 }

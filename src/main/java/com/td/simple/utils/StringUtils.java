@@ -27,24 +27,6 @@ public class StringUtils {
                 .toLowerCase();
     }
 
-    public static String buildFullName(String fullName) {
-        String fullNameTemp = fullName.trim().replaceAll("\\s+", " ").toLowerCase();
-
-        // Creating array of string length
-        char[] ch = new char[fullNameTemp.length()];
-
-        // Copy character by character into array
-        for (int i = 0; i < fullNameTemp.length(); i++) {
-            if (i == 0 || fullNameTemp.charAt(i - 1) == ' ') {
-                ch[i] = Character.toUpperCase(fullNameTemp.charAt(i));
-            } else {
-                ch[i] = fullNameTemp.charAt(i);
-            }
-        }
-
-        return String.valueOf(ch);
-    }
-
     private void StringUtils() {
         throw new IllegalStateException("StringUtils class");
     }

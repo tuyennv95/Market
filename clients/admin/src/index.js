@@ -1,30 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals'
-import 'antd/dist/antd.css';
-import { createStore } from 'redux'
+import React from "react";
+import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
+import "antd/dist/antd.css";
+import { createStore } from "redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import { Provider } from 'react-redux'
+import { Provider } from "react-redux";
 
-import rootReducer from './redux/reducers'
+import rootReducer from "./redux/reducers";
 
-import './assets/boxicons-2.0.7/css/boxicons.min.css'
-import './assets/css/grid.css'
-import './assets/css/theme.css'
-import './assets/css/index.css'
+import "./assets/boxicons-2.0.7/css/boxicons.min.css";
+import "./assets/css/grid.css";
+import "./assets/css/theme.css";
+import "./assets/css/index.css";
 
-import Layout from './components/layout/Layout'
-import store from 'redux/store';
+import Layout from "./components/layout/Layout";
+import { store, persistor } from "redux/store";
 
-document.title = 'Tua CRM'
+document.title = "Tua CRM";
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Layout />
+      <PersistGate loading={null} persistor={persistor}>
+        <Layout />
+      </PersistGate>
     </React.StrictMode>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

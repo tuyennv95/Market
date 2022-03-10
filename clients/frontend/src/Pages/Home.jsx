@@ -13,6 +13,8 @@ const Home = () => {
   const location = useLocation();
   const search =  queryString.parse(location?.search);
   const {isSale} = search;
+  const [stateList, setStateList] = useState();
+  // const listLove = useSelector((state) => state?.user?.listLove);
 
   useEffect(() => {
     dispatch(getCount({ 
@@ -20,6 +22,12 @@ const Home = () => {
       recordPerPage: 1000,
     }))
   },[dispatch,isSale])
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+ 
   return (
     <div>
       <Banner />

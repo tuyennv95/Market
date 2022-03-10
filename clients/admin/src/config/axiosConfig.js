@@ -1,5 +1,7 @@
 import axios from 'axios';
 // import queryString from 'query-string';
+import { useDispatch } from 'react-redux';
+import { SET_ERROR_CATEGORY } from 'constan/types';
 const axiosConfig = axios.create({
     baseURL: 'http://localhost:8090',
     // headers:{
@@ -31,12 +33,16 @@ axiosConfig.interceptors.request.use(async (config) => {
       }
     };
 });
-// axiosConfig.interceptors.request.use((response)=>{
-//     if(response && response.data){
-//         return response.data;
-//     }
-//     return response;
-// },(error)=>{
-//         throw error;
-// });
+// axiosConfig.interceptors.request.use((error )=>{
+// console.log('🚀 ~ response', error);
+  
+  
+    // const status=err.status;
+    // const dispatch = useDispatch();
+    // const message = error.message || error.statusText || error;
+    // console.log('🚀 ~ message', message);
+    // dispatch({type: SET_ERROR_CATEGORY, payload: message})
+    // return Promise.reject(error)
+ 
+
 export default axiosConfig;

@@ -17,13 +17,16 @@ public class EmployeeUpdateInfo implements Serializable {
     private String username;
 
     private String avatar;
+    private String fullName;
+
     private String email;
     @NonNull
     private String phone;
-    // Mã phòng ban
-    private String departmentCode;
+
     // Mã chức vụ.
     private String titleCode;
+    // Mã phòng ban
+    private String departmentCode;
     // Quyền truy cập hệ thống
     // Là trưởng phòng, nhìn được thông tin của nhân viên trong phòng
     private DepartmentRoleType departmentRole;

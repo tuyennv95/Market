@@ -9,7 +9,6 @@ const ShopCartItem = ({ data }) => {
   const [value1, setValue1] = useState(1);
   function onChange(value) {
     setValue1(value);
-    console.log(value)
     dispatch(addToCart({
       id: data?.id,
       quantily: value,
@@ -31,7 +30,7 @@ const ShopCartItem = ({ data }) => {
       {data && (
         <div className="container">
           <div className="shop-cart-item-main">
-            <Row style={{padding: '0 0 20px 0'}}>
+            <Row className="row-shop-cart-item" style={{padding: '0 0 0 0'}}>
               <Col md={10} sm={10} sx={24}>
                 <div className="shop-cart-item-value">
                   <h3 className="shop-cart-item-name">{data?.product?.nameDisplay}</h3>
@@ -45,7 +44,7 @@ const ShopCartItem = ({ data }) => {
               <Col md={4} sm={4} sx={24}>
                 <InputNumber
                   min={1}
-                  max={10}
+                  max={data?.product?.quantity}
                   value={value1}
                   onChange={onChange}
                 />
@@ -57,7 +56,7 @@ const ShopCartItem = ({ data }) => {
                 <Button onClick={removeCartItem} type="primary">Xóa</Button>
               </Col>
             </Row>
-            <hr />
+            
           </div>
         </div>
       )}

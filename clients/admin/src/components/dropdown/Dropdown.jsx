@@ -17,7 +17,7 @@ const clickOutsideRef = (content_ref, toggle_ref) => {
 }
 
 const Dropdown = props => {
-
+    console.log(props)
     const dropdown_toggle_el = useRef(null)
     const dropdown_content_el = useRef(null)
 
@@ -36,17 +36,11 @@ const Dropdown = props => {
                     props.customToggle ? props.customToggle() : ''
                 }
             </button>
-            <div ref={dropdown_content_el} className="dropdown__content">
+            <div ref={dropdown_content_el} className={`dropdown__content ${props.orderNew ? 'order-new' : null}`}>
                 {
                     props.contentData && props.renderItems ? props.contentData.map((item, index) => props.renderItems(item, index)) : ''
                 }
-                {
-                    props.renderFooter ? (
-                        <div className="dropdown__footer">
-                            {props.renderFooter()}
-                        </div>
-                    ) : ''
-                }
+            
             </div>
         </div>
     )

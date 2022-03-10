@@ -12,11 +12,13 @@ import { useSelector, useDispatch } from "react-redux";
 import ThemeAction from "../../redux/actions/ThemeAction";
 import Router from "Router/Router";
 import Login from "components/Login/Login";
+import { getAllCategory } from 'redux/actions/AsyncCategory';
 const Layout = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer);
 
   const dispatch = useDispatch();
-
+  const {token} = useSelector((state) => state.AuthReducer);
+  
   useEffect(() => {
     const themeClass = localStorage.getItem("themeMode", "theme-mode-light");
 
@@ -28,7 +30,6 @@ const Layout = () => {
   }, [dispatch]);
 
   // const token = localStorage.getItem("token");
-  const {token} = useSelector((state) => state.AuthReducer);
   return (
     <>
       <BrowserRouter>

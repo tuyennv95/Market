@@ -1,3 +1,6 @@
+.bx-search{
+    cursor: pointer;
+}
 .topnav {
     padding: 30px;
     display: flex;
@@ -77,4 +80,8 @@
 .topnav__right-user__name {
     font-size: 1rem;
     font-weight: 600;
+}
+.order-new{
+    height: 500px!important;
+    overflow-y: auto!important;
 }

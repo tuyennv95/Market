@@ -6,12 +6,17 @@ export const getProducts = createAsyncThunk('user/getProducts', async (payload) 
     const response  = await productsApi.getProducts(payload);
     return response;
 });
+export const getTop = createAsyncThunk('user/getTop', async (payload) =>{
+    const response = await productsApi.getTopBuy(payload);
+    return response.data;
+})
 
 
 const initialState ={
     isLoading: false,
     errorMessage: '',
     listProducts: [],
+    listTop:[],
 }
 const productsSlice = createSlice({
     name: 'products',
@@ -32,6 +37,19 @@ const productsSlice = createSlice({
             state.isLoading = false;
             state.errorMessage = action.error;
             state.listProducts = [];
+        },
+        [getTop.pending]: (state) =>{
+            state.isLoading = true;
+        },
+        [getTop.fulfilled] :(state, action) =>{
+            state.isLoading = false;
+            state.errorMessage = '';
+            state.listTop = action.payload;
+        },
+        [getTop.rejected] :(state, action) =>{
+            state.isLoading = false;
+            state.errorMessage = action.error;
+            state.listTop = [];
         }
     }
 })

@@ -14,7 +14,7 @@ public class QueryUtils {
 
     public static void getQuerySortAndPageable(Query query, BasePageableInfo model) {
         // Thêm điều kiện sort
-        if (StringUtils.isNullOrEmpty(model.getFieldSorted()) && StringUtils.isNullOrEmpty(model.getTypeSorted())) {
+        if (!StringUtils.isNullOrEmpty(model.getFieldSorted()) && !StringUtils.isNullOrEmpty(model.getTypeSorted())) {
             query.with(Sort.by(
                     Sort.Direction.valueOf(model.getTypeSorted().toUpperCase()),
                     model.getFieldSorted()));
@@ -30,7 +30,7 @@ public class QueryUtils {
     }
 
     public static void getQuerySearchText(Query query, BasePageableInfo model) {
-        if (StringUtils.isNullOrEmpty(model.getKeyword())) {
+        if (!StringUtils.isNullOrEmpty(model.getKeyword())) {
             model.setKeyword(model.getKeyword().trim());
 
             if (model.getKeywordType() == null ||
