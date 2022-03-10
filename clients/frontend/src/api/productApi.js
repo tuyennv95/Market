@@ -12,6 +12,10 @@ const productsApi = {
     getProductDetail(id){
         const url = `/v1/product/public/${id}`;
         return axiosConfig.get(url);
+    },
+    getTopBuy(){
+        const url = "/v1/product/public/top-buy";
+        return axiosConfig.get(url);
     }
 }
 export default productsApi;

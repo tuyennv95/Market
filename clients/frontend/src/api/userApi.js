@@ -13,5 +13,25 @@ const userApi = {
     };
     return axiosConfig.post(url, {}, config);
   },
+  changePass(data){
+    const url="/v1/customer/customer/update-password";
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return axiosConfig.post(url, data, config)
+  },
+  editLove(productCode){
+    const url = `/v1/customer/customer/favorite/${productCode}`;
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return axiosConfig.get(url, config)
+  }
 };
 export default userApi;

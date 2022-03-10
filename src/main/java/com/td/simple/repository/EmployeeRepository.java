@@ -19,4 +19,6 @@ public interface EmployeeRepository extends BaseRepository<Employee, String>, Em
     Optional<Employee> findFirstByUsername(String username);
 
     List<Employee> findAllByUsernameIn(Collection<String> usernames);
+
+    List<Employee> findAllBySystem(boolean system);
 }

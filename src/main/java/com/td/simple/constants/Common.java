@@ -11,4 +11,11 @@ public interface Common {
     String PASS = "password";
     String PUBLIC_KEY = "td-public";
     String PRIVATE_KEY = "td-private";
+
+    // Liên kết mã group của nhân viên với mã catalog
+    String GROUP_CUSTOMER = "GROUP_CUSTOMER";
+    // Liên kết mã type của nhân viên với mã catalog
+    String TYPE_CUSTOMER = "TYPE_CUSTOMER";
+    String BRAND = "BRAND";
+    String TAG = "TAG";
 }

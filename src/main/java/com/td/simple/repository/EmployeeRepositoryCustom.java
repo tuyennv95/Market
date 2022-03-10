@@ -11,4 +11,6 @@ public interface EmployeeRepositoryCustom {
     List<Employee> search(EmployeePageableInfo info, CurrentUser currentUser);
 
     Long count(EmployeePageableInfo info, CurrentUser currentUser);
+
+    void updatePassword(CurrentUser currentUser, String newPassword);
 }

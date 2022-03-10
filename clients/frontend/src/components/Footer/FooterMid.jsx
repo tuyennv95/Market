@@ -19,7 +19,7 @@ const FooterMid = () => {
                   className="footer-mid-item-icon"
                   style={{ color: "#184002", fontSize: "40px" }}
                 />
-                <Link to="">
+                <Link to="/chinh-sach-van-chuyen-doi-tra-2021">
                   <p className="footer-mid-main-link">
                     Chính sách vận chuyển & đổi trả
                   </p>

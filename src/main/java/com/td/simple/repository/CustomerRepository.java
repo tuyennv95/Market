@@ -18,5 +18,9 @@ public interface CustomerRepository extends BaseRepository<Customer, String>, Cu
 
     Optional<Customer> findFirstByUsername(String username);
 
+    Optional<Customer> findFirstByCode(String code);
+
     List<Customer> findAllByUsernameIn(Collection<String> usernames);
+
+    List<Customer> findAllByCodeIn(Collection<String> codes);
 }

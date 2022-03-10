@@ -15,42 +15,27 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenService implements Serializable {
+
     private static final long serialVersionUID = -2550185165626007488L;
-    // Hết hạn sau 1 ngày
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    // Hết hạn sau 1 ngày:  5 * 60 * 60 = 18000
+    public static final long JWT_TOKEN_VALIDITY = 18000000;
 
     @Value("${jwt.secret}")
     private String secret;
 
-    // retrieve username from jwt token
-    public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
-    }
-
-    // retrieve expiration date from jwt token
-    public Date getExpirationDateFromToken(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
-    }
-
-    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
-    }
-
     // for retrieveing any information from token we will need the secret key
-    private Claims getAllClaimsFromToken(String token) {
+    public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    //check if the token has expired
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
-    }
-
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(CustomUserDetailsService.CustomUserDetail userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("clientId", userDetails.getClientId());
+        claims.put("email", userDetails.getEmail());
+        claims.put("phone", userDetails.getPhone());
+        claims.put("productFavorite", userDetails.getProductFavorite());
+
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
@@ -69,5 +54,26 @@ public class JwtTokenService implements Serializable {
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    //check if the token has expired
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
+    }
+
+    // retrieve expiration date from jwt token
+    public Date getExpirationDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getExpiration);
+    }
+
+    // retrieve username from jwt token
+    public String getUsernameFromToken(String token) {
+        return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
     }
 }

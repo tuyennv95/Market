@@ -1,14 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Row, Col, Form, Input, Button,message } from "antd";
 import {useNavigate} from 'react-router-dom';
 import "./style.css";
 // import axios from "axios";
 // import { unwrapResult } from '@reduxjs/toolkit';
-import {login} from 'store/userSlice';
-import { useDispatch } from "react-redux";
+import {login, setUser} from 'store/userSlice';
+import { useDispatch, useSelector } from "react-redux";
+import jwt_decode from "jwt-decode";
+import { setLoveAct } from "store/userSlice";
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const success = () => {
     message.success('Đăng nhập thành công');
   };
@@ -17,16 +21,22 @@ const Login = () => {
   };
   const onFinish = async (value) => {
     const dataLogin = await dispatch(login(value));
-    console.log("🚀 ~ file: Login.jsx ~ line 15 ~ onFinish ~ dataLogin", dataLogin)
     if(dataLogin.payload){
+      dispatch(setUser(dataLogin?.meta?.arg?.username))
+      const token = await dataLogin?.payload?.data?.result;
+      const encodeData = await jwt_decode(token);
+      dispatch(setLoveAct(encodeData?.productFavorite));
       success();
       setTimeout(() => {
         navigate('/');
-      }, 2000)
+      }, 3000)
     }else{
       error();
     }
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const onFinishFailed = (errorInfo) => {};
   const moveLink= () =>{

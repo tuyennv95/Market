@@ -22,6 +22,7 @@
 }
 .menu  ul  li.menu-main-item{
     height: 100%;box-sizing: border-box;
+
     
     
 }
@@ -65,6 +66,7 @@
 /* ---------menu-------------  */
 .menu-show{
     position: absolute;
+    
     width: auto;
     height: auto; 
     top: 120%;
@@ -73,7 +75,7 @@
     opacity: 0;
     visibility: hidden;
     /* display: none; */
-    z-index: 999;
+    z-index: 20;
     background-color:white;
 }
 

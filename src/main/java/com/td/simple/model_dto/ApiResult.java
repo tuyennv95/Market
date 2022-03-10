@@ -19,7 +19,8 @@ public class ApiResult<T> implements Serializable {
     private T result;
     private boolean isError;
     private String code;
-    private Long count = 0L;
+    // Note cho dev
+    private String message;
 
     public ApiResult(T result) {
         this.result = result;

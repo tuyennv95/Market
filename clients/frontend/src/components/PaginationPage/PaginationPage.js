@@ -23,7 +23,7 @@ const count = useSelector(state => state.count.count);
   };
   return (
     <div style={{paddingBottom:'50px'}}>
-      <Pagination onChange={setPage} pageSize={15} total={count} />
+      <Pagination onChange={setPage} total={count} pageSize={10}/>
     </div>
   );
 };

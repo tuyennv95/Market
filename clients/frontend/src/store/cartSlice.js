@@ -8,12 +8,10 @@ const cartSlice = createSlice({
   initialState: initialState,
   reducers: {
     addToCart(state, action) {
-      if (state.listCart.length === 0) {
+      if (state?.listCart?.length === 0) {
         state.listCart.push(action.payload);
       } else {
-        const index = state?.listCart
-          .map((item) => item?.id)
-          .indexOf(action?.payload.id);
+        const index = state?.listCart?.map((item) => item?.id)?.indexOf(action?.payload.id);
         if (index === -1) {
           state.listCart.push(action.payload);
         } else {
@@ -23,11 +21,14 @@ const cartSlice = createSlice({
     },
     delCartItem(state, action){
         state.listCart = state.listCart.filter(e => e.id !== action.payload.id)
+    },
+    resetCart(state){
+      state.listCart = [];
     }
    
   },
 });
 
 const { actions, reducer } = cartSlice;
-export const { addToCart, delCartItem } = actions;
+export const { addToCart, delCartItem,resetCart } = actions;
 export default reducer;

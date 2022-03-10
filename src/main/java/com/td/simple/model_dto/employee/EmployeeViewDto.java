@@ -71,5 +71,4 @@ public class EmployeeViewDto implements Serializable {
     private LocalDateTime lastModifiedDate;
 
     private String lastModifiedBy;
-
 }
